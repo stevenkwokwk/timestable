@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+    <title>Random Times Table Practice</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 90vw;
+            height: 90vh;
+            table-layout: fixed;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+        
+        table,td {
+            border: 1px solid grey;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container">
+    </div>
+    <script>
+        let maxNum=12;
+        let ascendNumArray=[];
+        for (i=0;i<maxNum;i++) {
+            ascendNumArray[i]=i+1;
+        }
+        let xRandomNumArray;
+        let yRandomNumArray;
+        function createRandomNumArray() {
+            let arr=[];
+            let ascendNumArrayCopy=ascendNumArray.slice();
+            for (let i=0;i<maxNum;i++) {
+                let randomIndex=Math.floor(Math.random()*ascendNumArrayCopy.length);
+                arr[i]=ascendNumArrayCopy[randomIndex];
+                ascendNumArrayCopy.splice(randomIndex,1);
+            }
+            return arr;
+        }
+
+        xRandomNumArray=createRandomNumArray();
+        yRandomNumArray=createRandomNumArray();
+
+        let firstRowHtml=`<tr><td>X</td>`;
+
+        for (num of xRandomNumArray){
+            firstRowHtml=firstRowHtml+`<td>${num}</td>`;
+        }
+        firstRowHtml=firstRowHtml+'</tr>'
+
+        let otherRowsHtml='';
+        let otherRowsHtmlpart='';
+        for (num of xRandomNumArray) {
+            otherRowsHtmlpart=otherRowsHtmlpart+'<td></td>';
+        }
+        for (num of yRandomNumArray){
+            otherRowsHtml=otherRowsHtml+`<tr><td>${num}</td>${otherRowsHtmlpart}</tr>`;
+        }
+
+        tableHtml='<table>'+firstRowHtml+otherRowsHtml+'</table>';
+        document.getElementById('container').innerHTML=tableHtml;
+    </script>
+</body>
+</html>
